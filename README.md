@@ -3,8 +3,10 @@
 * see
   * [setuptools Quickstart — setuptools 55.0.0 documentation](https://setuptools.readthedocs.io/en/latest/userguide/quickstart.html)
   * [Packaging Python Projects — Python Packaging User Guide](https://packaging.python.org/tutorials/packaging-projects/)
+  * [navdeep-G/setup.py: 📦 A Human's Ultimate Guide to setup.py.](https://github.com/navdeep-G/setup.py)
 
-## setup.cfg only
+## 実装
+### setup.cfg only
 
 * `setup.py` 無しでwheelを作成し、install可能。なおwheelを作成せずに直接installすることは[出来ないようだ](https://discuss.python.org/t/pep-517-and-projects-that-cant-install-via-wheels/791)
   * 現状のrepository内には `setup.py` が存在するが、ファイルを削除して実行可能
@@ -37,7 +39,7 @@
 hello world!
 ```
 
-## setup.py
+### setup.py
 
 * `setup.cfg`だけではDevelopment modeでのinstallは不可能。
   * [setuptools Quickstart — setuptools 55.0.0 documentation](https://setuptools.readthedocs.io/en/latest/userguide/quickstart.html#development-mode)
@@ -61,3 +63,8 @@ setuptools.setup()
 > python -c 'import mypackage.hoge; mypackage.hoge.hello_world()'
 hello world!
 ```
+
+## その他情報
+* `setup.py` `setup.cfg` での項目の説明は以下
+  * https://setuptools.readthedocs.io/en/latest/references/keywords.html
+  * https://packaging.python.org/guides/distributing-packages-using-setuptools/#setup-args
