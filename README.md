@@ -17,39 +17,38 @@
 
 ``` bash
 > pip install build
-> cd /path/to/this_repository
+> cd /path/to/this_repository/with_pep517
 > python -m build
 # 生成物の確認
 > tree 
 .
-├── build
-│   ├── bdist.linux-x86_64
-│   └── lib
-│       └── mypackage
-│           ├── __init__.py
-│           └── hoge.py
 ├── dist
 │   ├── mypackage-0.0.1-py3-none-any.whl
 │   └── mypackage-0.0.1.tar.gz
+├── mypackage
+│   ├── __init__.py
+│   └── hoge.py
 ├── mypackage.egg-info
 │   ├── PKG-INFO
 │   ├── SOURCES.txt
 │   ├── dependency_links.txt
 │   └── top_level.txt
+├── pyproject.toml
+└── setup.cfg
 ...
 > pip install dist/mypackage-0.0.1-py3-none-any.whl 
 # packageの動作確認
+> cd ../
 > python -c 'import mypackage.hoge; mypackage.hoge.hello_world()'
 hello world!
 ```
 
 ### without PEP517
 
-* PEP517に従う方法ではDevelopment modeでのinstallは不可能。
+* ~~PEP517に従う方法ではDevelopment modeでのinstallは不可能。~~ そうでもなくなった？
   * [setuptools Quickstart — setuptools 55.0.0 documentation](https://setuptools.readthedocs.io/en/latest/userguide/quickstart.html#development-mode)
 * `setup.py` を書いて setuptools の方法でDevelopment modeでinstall出来る。
 * 以下のように書くだけで `setup.py` の作成は完了。 `setup.cfg` の項目が自動で反映される。
-
 
 ``` py
 import setuptools
@@ -60,12 +59,10 @@ setuptools.setup()
 
 ``` sh
 > cd /path/to/this_repository
-> pip install .
-# or install development mode
-# > pip install -e .
+> pip install -e without_pep517
 
 # packageの動作確認
-> python -c 'import mypackage.hoge; mypackage.hoge.hello_world()'
+> python -c 'import without_pep517.hoge; without_pep517.hoge.hello_world()'
 hello world!
 ```
 
