@@ -66,6 +66,59 @@ setuptools.setup()
 hello world!
 ```
 
+### CPython C Extension
+
+C,C++実装をCPythonから利用する。
+
+``` bash
+> cd /path/to/this_repository
+> pip install ./python_c_extension
+# packageの動作確認
+> pip list | grep spam
+spam-package 0.0.1
+> pip freeze | grep spam
+spam-package @ file:///path/to/setuptools_practice/python_c_extension
+
+> python -c "import spam; spam.system('ls')"
+README.md  python_c_extension  with_pep517  without_pep517
+```
+
+`build` を使えばWheelの作成も可能
+
+```
+> cd python_c_extension
+> python -m build
+> tree
+.
+├── README.md
+├── dist
+│   ├── spam_package-0.0.1-cp38-cp38-linux_x86_64.whl
+│   └── spam_package-0.0.1.tar.gz
+├── pyproject.toml
+├── setup.cfg
+├── setup.py
+├── spam_package.egg-info
+│   ├── PKG-INFO
+│   ├── SOURCES.txt
+│   ├── dependency_links.txt
+│   └── top_level.txt
+└── spammodule.c
+
+2 directories, 11 files
+
+> pip install dist/spam_package-0.0.1-cp38-cp38-linux_x86_64.whl
+> python -c "import spam; spam.system('ls')"
+README.md  dist  pyproject.toml  setup.cfg  setup.py  spam_package.egg-info  spammodule.c
+```
+
+#### refs
+* Practice https://docs.python.org/3/extending/extending.html. 
+* Install c extension with setuptools. These are references, using distutils instead of setuptools.
+  * https://docs.python.org/ja/3/extending/building.html#building-c-and-c-extensions-with-distutils
+  * https://docs.python.org/ja/3/distutils/setupscript.html#describing-extension-modules
+* see:
+  * https://packaging.python.org/guides/packaging-binary-extensions/#introduction-to-c-c-extension-modules 
+
 ## その他情報
 * `setup.py` `setup.cfg` での項目の説明は以下
   * https://setuptools.readthedocs.io/en/latest/references/keywords.html
