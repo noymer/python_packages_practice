@@ -119,6 +119,21 @@ README.md  dist  pyproject.toml  setup.cfg  setup.py  spam_package.egg-info  spa
 * see:
   * https://packaging.python.org/guides/packaging-binary-extensions/#introduction-to-c-c-extension-modules 
 
+### CPython C Extension with Stable ABI
+
+* C Extensionは通常はbuildに使ったpyhonの（マイナー）バージョンのみで利用可能。しかし[Stable ABI](https://docs.python.org/ja/3/c-api/stable.html)に基づいて実装・compileすれば複数バージョンで利用可能。
+* 具体的な実装としては以下。Extensionの引数として `py_limited_api=True` と [Py_LIMITED_API](https://docs.python.org/ja/3/c-api/stable.html) のdefineが必要。
+
+```
+# setup.py
+module1 = Extension(
+    'spam2',
+    sources=['spammodule.c'],
+    py_limited_api=True,
+    define_macros=[('Py_LIMITED_API', 0x03060000)]
+)
+```
+
 ## その他情報
 * `setup.py` `setup.cfg` での項目の説明は以下
   * https://setuptools.readthedocs.io/en/latest/references/keywords.html
